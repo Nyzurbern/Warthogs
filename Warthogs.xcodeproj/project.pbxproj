@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D9B0BA7C2E50386C0039FA32 /* Demonized.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B0BA7B2E50386C0039FA32 /* Demonized.ttf */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D90DAFB22E5018B3005D579F /* Warthogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warthogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9B0BA7B2E50386C0039FA32 /* Demonized.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Demonized.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D9B0BA7E2E50399D0039FA32 /* Exceptions for "Warthogs" folder in "Warthogs" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D90DAFB12E5018B3005D579F /* Warthogs */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D90DAFB42E5018B3005D579F /* Warthogs */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D9B0BA7E2E50399D0039FA32 /* Exceptions for "Warthogs" folder in "Warthogs" target */,
+			);
 			path = Warthogs;
 			sourceTree = "<group>";
 		};
@@ -32,6 +50,7 @@
 		D90DAFA92E5018B3005D579F = {
 			isa = PBXGroup;
 			children = (
+				D9B0BA7A2E50383E0039FA32 /* Custom Fonts */,
 				D90DAFB42E5018B3005D579F /* Warthogs */,
 				D90DAFB32E5018B3005D579F /* Products */,
 			);
@@ -43,6 +62,14 @@
 				D90DAFB22E5018B3005D579F /* Warthogs.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D9B0BA7A2E50383E0039FA32 /* Custom Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D9B0BA7B2E50386C0039FA32 /* Demonized.ttf */,
+			);
+			path = "Custom Fonts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B0BA7C2E50386C0039FA32 /* Demonized.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +282,7 @@
 				DEVELOPMENT_TEAM = X48KKMDMUN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Warthogs/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to detect hand poses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -282,6 +311,7 @@
 				DEVELOPMENT_TEAM = X48KKMDMUN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Warthogs/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to detect hand poses.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

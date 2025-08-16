@@ -16,10 +16,12 @@ struct ContentView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 400, height: 200, alignment: .top)
             
+        }
+        
+        VStack {
             
             Text("Warthogs")
                 .font(.largeTitle)
-                .font(Font.custom("Demonized", size: 40))
             
             Image("playButton")
                 .resizable()
