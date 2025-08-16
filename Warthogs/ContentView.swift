@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            
             Image("mercury")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -19,16 +18,19 @@ struct ContentView: View {
             
             Text("Warthogs")
                 .font(.largeTitle)
-                .font(Font.custom("Demonized", size: 40))
-            
-            Image("playButton")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 60, height: 80, alignment: .top)
-            
+            Button {
+                print("Yay")
+            } label: {
+                VStack{
+                    Image("playButton")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60, alignment: .top)
+                }
+            }
         }
-        
-        
+        .aspectRatio(contentMode: .fill)
+        .frame(width: 1000, height: 80, alignment: .centerFirstTextBaseline)
         .padding()
         .ignoresSafeArea()
     }
