@@ -22,7 +22,6 @@ struct ContentView: View {
             
             Text("Warthogs")
                 .font(.largeTitle)
-                .font(<#T##font: Font?##Font?#>)
             
             Image("playButton")
                 .resizable()
