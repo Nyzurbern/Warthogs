@@ -70,6 +70,7 @@ struct GameView: View {
                 .padding(.bottom, 50)
         }
         .edgesIgnoringSafeArea(.all)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -104,10 +105,12 @@ struct ScannerView: UIViewControllerRepresentable {
         previewLayer.videoGravity = .resizeAspectFill
         viewController.view.layer.addSublayer(previewLayer)
         
-        Task {
-            captureSession.startRunning()
+        if let connection = previewLayer.connection, connection.isVideoOrientationSupported {
+                        connection.videoOrientation = .landscapeRight
+                    }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.startRunning()
         }
-        
         return viewController
     }
     
