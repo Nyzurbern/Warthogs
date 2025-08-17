@@ -9,18 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image("mercury")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 400, height: 200, alignment: .top)
-            
-            Text("Warthogs")
-                .font(.largeTitle)
-            Button {
-                print("Yay")
-            } label: {
-                VStack{
+        NavigationStack {
+            VStack {
+                Image("mercury")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 400, height: 200, alignment: .top)
+                
+                Text("Warthogs")
+                    .font(.largeTitle)
+                NavigationLink(destination: GameView()) {
                     Image("playButton")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -29,12 +27,10 @@ struct ContentView: View {
             }
         }
         .aspectRatio(contentMode: .fill)
-        .frame(width: 1000, height: 80, alignment: .centerFirstTextBaseline)
-        .padding()
+        .offset(x:0, y: -75)
         .ignoresSafeArea()
     }
 }
-
 #Preview {
     ContentView()
 }
