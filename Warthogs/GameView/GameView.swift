@@ -108,6 +108,7 @@ struct ScannerView: UIViewControllerRepresentable {
         if let connection = previewLayer.connection, connection.isVideoOrientationSupported {
             connection.videoOrientation = .landscapeRight
         }
+        
         DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession.startRunning()
         }
@@ -164,7 +165,8 @@ struct ScannerView: UIViewControllerRepresentable {
                     }
                     
                     // Convert normalized Vision points to screen coordinates and update coordinates
-                    self.parent.handPoints = points.map { self.convertVisionPoint($0) }
+                    let size = UIScreen.main.bounds.size
+                    self.parent.handPoints = points.map { self.convertVisionPoint($0, in: size)}
                     self.parent.handPoseInfo = "Hand detected with \(points.count) points"
                 }
             }
@@ -180,14 +182,15 @@ struct ScannerView: UIViewControllerRepresentable {
         }
         
         // Convert Vision's normalized coordinates to screen coordinates
-        func convertVisionPoint(_ point: CGPoint) -> CGPoint {
+        func convertVisionPoint(_ point: CGPoint, in size: CGSize) -> CGPoint {
             let screenSize = UIScreen.main.bounds.size
-            let y = point.x * screenSize.height
-            let x = point.y * screenSize.width
+            let y = (1 - point.y) * screenSize.height
+            let x = point.x * screenSize.width
             return CGPoint(x: x, y: y)
         }
     }
 }
+
 
 #Preview {
     GameView()
