@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct CharacterSelectionView: View {
-    
+    @State private var showingFullScreen = false
     var body: some View {
         
         let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
@@ -19,7 +19,7 @@ struct CharacterSelectionView: View {
             Text("🧍")
                 .font(.system(size: 250))
             Button("Select your character") {
-            
+                
             }
             .font(.system(size: 25))
             .gridColumnAlignment(.leading)
