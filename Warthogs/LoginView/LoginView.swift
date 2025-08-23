@@ -15,16 +15,18 @@ struct LoginView: View {
         
         VStack {
             
-            Text("Your name here")
-                .font(.largeTitle)
-            
             TextField("Name", text: $textInput)
+                .textFieldStyle(.roundedBorder)
                 .onSubmit {
-                    
                     print(textInput)
                 }
             
         
         }
     }
+}
+
+#Preview {
+    
+    LoginView()
 }
