@@ -12,20 +12,37 @@ struct LoginView: View {
     @State private var textInput = ""
     
     var body: some View {
-        
-        VStack {
+        HStack {
+            Text("🧍")
+                .font(.system(size: 300))
             
-            TextField("Name", text: $textInput)
-                .textFieldStyle(.roundedBorder)
-                .onSubmit {
-                    print(textInput)
+            VStack {
+                Text("What's your name?")
+                    .font(.system(size: 40))
+                TextField("Name", text: $textInput)
+                    .textFieldStyle(.roundedBorder)
+                    .onSubmit {
+                        print(textInput)
+                    }
+                
+                NavigationLink(destination: GameView()) {
+                    Button("START FIGHTING NOW!!") {}
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
                 }
+                
+                
+            }
             
-        
         }
+        
     }
+        
+    
+    
 }
+    
+    #Preview {
+        LoginView()
+    }
 
-#Preview {
-    LoginView()
-}
