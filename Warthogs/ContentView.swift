@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingFullScreen = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -18,19 +19,26 @@ struct ContentView: View {
                 
                 Text("Warthogs")
                     .font(.largeTitle)
-                NavigationLink(destination: GameView()) {
-                    Image("playButton")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60, alignment: .top)
+                Button(action: {
+                    showingFullScreen = true
+                }) {
+                    VStack{
+                        Image("playButton")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60, height: 60, alignment: .top)
+                    }
+                    .fullScreenCover(isPresented: $showingFullScreen) {
+                        GameView()
+                    }
                 }
             }
+            .aspectRatio(contentMode: .fill)
+            .offset(x:0, y: -75)
+            .ignoresSafeArea()
         }
-        .aspectRatio(contentMode: .fill)
-        .offset(x:0, y: -75)
-        .ignoresSafeArea()
     }
 }
 #Preview {
-    ContentView()
+        ContentView()
 }

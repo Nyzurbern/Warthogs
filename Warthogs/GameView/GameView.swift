@@ -16,7 +16,7 @@ struct GameView: View {
     @State private var handPoints: [CGPoint] = []
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints)
             
             // Draw lines between finger joints and the wrist
@@ -32,7 +32,7 @@ struct GameView: View {
                 if let wristIndex = handPoints.firstIndex(where: { $0 == handPoints.first }) {
                     for joints in fingerJoints {
                         guard joints.count > 1 else { continue }
-
+                        
                         // Connect wrist to the first joint of each finger
                         if joints[0] < handPoints.count {
                             let firstJoint = handPoints[joints[0]]
@@ -40,7 +40,7 @@ struct GameView: View {
                             path.move(to: wristPoint)
                             path.addLine(to: firstJoint)
                         }
-
+                        
                         // Connect the joints within each finger
                         for i in 0..<(joints.count - 1) {
                             if joints[i] < handPoints.count && joints[i + 1] < handPoints.count {
@@ -62,7 +62,7 @@ struct GameView: View {
                     .frame(width: 15)
                     .position(x: point.x, y: point.y)
             }
-
+            
             Text(handPoseInfo)
                 .padding()
                 .background(.ultraThinMaterial)
@@ -106,8 +106,8 @@ struct ScannerView: UIViewControllerRepresentable {
         viewController.view.layer.addSublayer(previewLayer)
         
         if let connection = previewLayer.connection, connection.isVideoOrientationSupported {
-                        connection.videoOrientation = .landscapeRight
-                    }
+            connection.videoOrientation = .landscapeRight
+        }
         DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession.startRunning()
         }
@@ -121,72 +121,72 @@ struct ScannerView: UIViewControllerRepresentable {
     }
     
     class Coordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-            var parent: ScannerView
-
-            init(_ parent: ScannerView) {
-                self.parent = parent
+        var parent: ScannerView
+        
+        init(_ parent: ScannerView) {
+            self.parent = parent
+        }
+        
+        func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+            guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+                return
             }
-
-            func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-                guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            self.detectHandPose(in: pixelBuffer)
+        }
+        
+        func detectHandPose(in pixelBuffer: CVPixelBuffer) {
+            let request = VNDetectHumanHandPoseRequest { (request, error) in
+                guard let observations = request.results as? [VNHumanHandPoseObservation], !observations.isEmpty else {
+                    DispatchQueue.main.async {
+                        self.parent.handPoseInfo = "No hand detected"
+                        self.parent.handPoints = []
+                    }
                     return
                 }
-                self.detectHandPose(in: pixelBuffer)
-            }
-
-            func detectHandPose(in pixelBuffer: CVPixelBuffer) {
-                let request = VNDetectHumanHandPoseRequest { (request, error) in
-                    guard let observations = request.results as? [VNHumanHandPoseObservation], !observations.isEmpty else {
-                        DispatchQueue.main.async {
-                            self.parent.handPoseInfo = "No hand detected"
-                            self.parent.handPoints = []
+                
+                if let observation = observations.first {
+                    var points: [CGPoint] = []
+                    
+                    // Loop through all recognized points for each finger, including wrist
+                    let handJoints: [VNHumanHandPoseObservation.JointName] = [
+                        .wrist,  // Wrist joint
+                        .thumbCMC, .thumbMP, .thumbIP, .thumbTip,   // Thumb joints
+                        .indexMCP, .indexPIP, .indexDIP, .indexTip, // Index finger joints
+                        .middleMCP, .middlePIP, .middleDIP, .middleTip, // Middle finger joints
+                        .ringMCP, .ringPIP, .ringDIP, .ringTip,     // Ring finger joints
+                        .littleMCP, .littlePIP, .littleDIP, .littleTip // Little finger joints
+                    ]
+                    
+                    for joint in handJoints {
+                        if let recognizedPoint = try? observation.recognizedPoint(joint), recognizedPoint.confidence > 0.5 {
+                            points.append(recognizedPoint.location)
                         }
-                        return
                     }
                     
-                    if let observation = observations.first {
-                        var points: [CGPoint] = []
-                        
-                        // Loop through all recognized points for each finger, including wrist
-                        let handJoints: [VNHumanHandPoseObservation.JointName] = [
-                            .wrist,  // Wrist joint
-                            .thumbCMC, .thumbMP, .thumbIP, .thumbTip,   // Thumb joints
-                            .indexMCP, .indexPIP, .indexDIP, .indexTip, // Index finger joints
-                            .middleMCP, .middlePIP, .middleDIP, .middleTip, // Middle finger joints
-                            .ringMCP, .ringPIP, .ringDIP, .ringTip,     // Ring finger joints
-                            .littleMCP, .littlePIP, .littleDIP, .littleTip // Little finger joints
-                        ]
-                        
-                        for joint in handJoints {
-                            if let recognizedPoint = try? observation.recognizedPoint(joint), recognizedPoint.confidence > 0.5 {
-                                points.append(recognizedPoint.location)
-                            }
-                        }
-                        
-                        // Convert normalized Vision points to screen coordinates and update coordinates
-                        self.parent.handPoints = points.map { self.convertVisionPoint($0) }
-                        self.parent.handPoseInfo = "Hand detected with \(points.count) points"
-                    }
-                }
-
-                request.maximumHandCount = 1
-
-                let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
-                do {
-                    try handler.perform([request])
-                } catch {
-                    print("Hand pose detection failed: \(error)")
+                    // Convert normalized Vision points to screen coordinates and update coordinates
+                    self.parent.handPoints = points.map { self.convertVisionPoint($0) }
+                    self.parent.handPoseInfo = "Hand detected with \(points.count) points"
                 }
             }
-
-            // Convert Vision's normalized coordinates to screen coordinates
-            func convertVisionPoint(_ point: CGPoint) -> CGPoint {
-                let screenSize = UIScreen.main.bounds.size
-                let y = point.x * screenSize.height
-                let x = point.y * screenSize.width
-                return CGPoint(x: x, y: y)
+            
+            request.maximumHandCount = 1
+            
+            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
+            do {
+                try handler.perform([request])
+            } catch {
+                print("Hand pose detection failed: \(error)")
             }
         }
+        
+        // Convert Vision's normalized coordinates to screen coordinates
+        func convertVisionPoint(_ point: CGPoint) -> CGPoint {
+            let screenSize = UIScreen.main.bounds.size
+            let y = point.x * screenSize.height
+            let x = point.y * screenSize.width
+            return CGPoint(x: x, y: y)
+        }
+    }
 }
 
 #Preview {
