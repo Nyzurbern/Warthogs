@@ -7,18 +7,19 @@
 import SwiftUI
 
 struct CharacterSelectionView: View {
+    
     var body: some View {
         
         let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
         
         Text("Select your character")
             .font(.system(size: 40))
-       
+                    
         HStack {
             Text("🧍")
                 .font(.system(size: 250))
             Button("Select your character") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+            
             }
             .font(.system(size: 25))
             .gridColumnAlignment(.leading)
@@ -34,5 +35,5 @@ struct CharacterSelectionView: View {
     }
 }
         #Preview {
-                CharacterSelectionView()
+            CharacterSelectionView()
         }
