@@ -14,8 +14,24 @@ struct GameView: View {
     
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
+    @State private var EnemyScore: Int = 0
+    
+    let timerColour: Color = Color(red: 0.9764 ,green: 0.8078, blue: 0.8078)
+    let enemyScoreColour: Color = Color(red: 0.9764, green: 0, blue: 0)
     
     var body: some View {
+        
+        ZStack {
+            Rectangle()
+                .frame(width: 600, height: 60, alignment: .top)
+                .foregroundStyle(timerColour)
+            HStack{
+                Text("0")
+                    .font(.largeTitle)
+            }
+        }
+        .offset(x: 0, y: 20)
+        
         ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints)
             
