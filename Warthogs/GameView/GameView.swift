@@ -29,6 +29,7 @@ struct GameView: View {
             Rectangle()
                 .frame(width: 600, height: 60, alignment: .top)
                 .foregroundStyle(timerColour)
+                .border(.black, width: 2)
             HStack{
                 Text(String(PlayerScore))
                     .font(.largeTitle)
