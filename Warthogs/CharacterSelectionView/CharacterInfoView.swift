@@ -28,23 +28,33 @@ struct CharacterInfoView: View {
     let characters = [
         Character(name: "Tiny Smalle", imageName: "LittleSmalleProfile", attributes: CharacterAttributes(skill: "Flicks his cockroach antennae at the opponent.😎", ultimate: "Charges at the opponent like a cockroach🪳", backstory: "Having been cursed by a cockroach diety in his early years, he stopped growing, gained some cockroach powers but retained cockroach traits.🥶")),
         
-        Character(name: "Lao Nainai", imageName: "LaoNainaiProfile", attributes: CharacterAttributes(skill: "Punches the opponent with her amazing tai chi skills.😳", ultimate: "FLYING KICKS THE OPPONENT WITH HER GOOD LEG!", backstory: "She's best friends with Michelle Yeoh and has sparred with her since they were toddlers. She practices Tai Chi at Jurong Sports Centre.")),
+        Character(name: "Lao Nainai", imageName: "LaoNainaiProfile", attributes: CharacterAttributes(skill: "Punches the opponent with her amazing tai chi skills.😳", ultimate: "FLYING KICKS THE OPPONENT WITH HER GOOD LEG!", backstory: "She has sparred with Michelle Yeoh since they were toddlers. Practices Tai Chi at Jurong Sports Centre.")),
         ]
     
         var body: some View {
-            
-            VStack {
-                Button("Select your character"){
-                    withAnimation {
-                        showGrid.toggle()
+            VStack{
+
+                HStack {
+         
+                    VStack {
+                        
+                        Button("Select your character"){
+                            showGrid.toggle()
+                        }
                     }
+                    .padding()
+                    .font(.system(size: 25))
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    
+                    Image("devilLOL!!")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 150, height: 150, alignment: .leading)
                 }
+                
             }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            
             if showGrid{
                 CharacterSelectionView(characters: characters, selectedCharacter: $selectedCharacter, showGrid: $showGrid)
             }
