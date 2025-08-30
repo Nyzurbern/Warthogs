@@ -14,6 +14,9 @@ struct GameView: View {
     
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
+    @State private var bubbles: [Bubble] = [
+        Bubble(name: "Skill", image: "bubbles")
+    ]
     
     @State private var EnemyScore: Int = 0
     @State private var PlayerScore: Int = 0
@@ -22,7 +25,7 @@ struct GameView: View {
     let timerColour: Color = Color(red: 0.9764 ,green: 0.8078, blue: 0.8078)
     let enemyScoreColour: Color = Color(red: 0.9764, green: 0, blue: 0)
     let playerScoreColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
-    
+
     var body: some View {
         
         ZStack {
@@ -46,7 +49,7 @@ struct GameView: View {
         .offset(x: 0, y: 20)
         
         ZStack(alignment: .bottom){
-            ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints)
+            ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $bubbles)
             
             // Draw lines between finger joints and the wrist
             Path { path in
@@ -108,6 +111,7 @@ struct ScannerView: UIViewControllerRepresentable {
     
     @Binding var handPoseInfo: String
     @Binding var handPoints: [CGPoint]
+    @Binding var bubbles: [Bubble]
     
     let captureSession = AVCaptureSession()
     
