@@ -15,7 +15,7 @@ struct GameView: View {
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", image: "bubbles")
+        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble")
     ]
     
     @State private var EnemyScore: Int = 0
@@ -93,6 +93,13 @@ struct GameView: View {
                     .fill(.red)
                     .frame(width: 15)
                     .position(x: point.x, y: point.y)
+            }
+            
+            ForEach(bubbles) {bubbles in
+                Image(bubbles.imageName)
+                    .resizable()
+                    .frame(width: bubbles.radius * 2, height: bubbles.radius * 2)
+                    .position(bubbles.position)
             }
             
             Text(handPoseInfo)
@@ -199,8 +206,12 @@ struct ScannerView: UIViewControllerRepresentable {
                     
                     // Convert normalized Vision points to screen coordinates and update coordinates
                     let size = UIScreen.main.bounds.size
-                    self.parent.handPoints = points.map { self.convertVisionPoint($0, in: size)}
-                    self.parent.handPoseInfo = "Hand detected with \(points.count) points"
+                    let convertedPoints = points.map {self.convertVisionPoint($0, in: size)}
+                    DispatchQueue.main.async {
+                        self.parent.handPoints = convertedPoints
+                        self.parent.handPoseInfo = "Hand detected with \(points.count) points"
+                        self.checkCollisions(handPoints: convertedPoints, bubbles: self.parent.bubbles)
+                    }
                 }
             }
             
@@ -211,6 +222,22 @@ struct ScannerView: UIViewControllerRepresentable {
                 try handler.perform([request])
             } catch {
                 print("Hand pose detection failed: \(error)")
+            }
+        }
+        
+        func checkCollisions(handPoints: [CGPoint], bubbles: [Bubble]){
+            for finger in handPoints {
+                for bubble in bubbles {
+                    let dx = finger.x - bubble.position.x
+                    let dy = finger.y - bubble.position.y
+                    let distance = sqrt(dx*dx + dy*dy)
+                    if distance < bubble.radius {
+                        print("Finger hit bubble!")
+                        if let idx = parent.bubbles.firstIndex(where: {$0.id == bubble.id}) {
+                            parent.bubbles.remove(at: idx)
+                        }
+                    }
+                }
             }
         }
         

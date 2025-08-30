@@ -9,5 +9,7 @@ import SwiftUI
 struct Bubble: Identifiable {
     let id = UUID()
     let name: String
-    var image: String
+    let position: CGPoint
+    let radius: CGFloat
+    var imageName: String
 }
