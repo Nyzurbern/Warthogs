@@ -15,7 +15,7 @@ struct CharacterSelectionView: View {
     
     var body: some View {
         
-        let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
+//        let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
         
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
             ForEach(characters, id: \.name) { character in Button(action: {
@@ -43,5 +43,3 @@ struct CharacterSelectionView: View {
                     
     }
 }
-        #Preview {
-        }
