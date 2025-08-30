@@ -15,7 +15,8 @@ struct GameView: View {
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble")
+        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble"),
+        Bubble(name: "Ultimate", position: CGPoint(x: 520, y: 200), radius: 70 ,imageName: "bubble")
     ]
     
     @State private var EnemyScore: Int = 0
@@ -232,7 +233,7 @@ struct ScannerView: UIViewControllerRepresentable {
                     let dy = finger.y - bubble.position.y
                     let distance = sqrt(dx*dx + dy*dy)
                     if distance < bubble.radius {
-                        print("Finger hit bubble!")
+                        print("Finger hit bubble\(bubble.id)!")
                         if let idx = parent.bubbles.firstIndex(where: {$0.id == bubble.id}) {
                             parent.bubbles.remove(at: idx)
                         }
