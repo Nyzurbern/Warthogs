@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    
+    @State private var showingFullScreen = false
     @State private var textInput = ""
     
     var body: some View {
@@ -26,12 +26,16 @@ struct LoginView: View {
                     }
                 
                 NavigationLink(destination: GameView()) {
-                    Button("START FIGHTING NOW!!") {}
+                    Button("START FIGHTING NOW!!", action: {
+                        showingFullScreen = true
+                    })
                         .buttonStyle(.borderedProminent)
                         .tint(.red)
                 }
-                
-                
+                .fullScreenCover(isPresented: $showingFullScreen) {
+                    PlanetView()
+                }
+
             }
             
         }

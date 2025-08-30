@@ -7,6 +7,9 @@
 import SwiftUI
 
 struct PlanetView: View {
+    
+    @State private var showingFullScreen = false
+    
     var body: some View {
         
         Text("Pick your planet!")

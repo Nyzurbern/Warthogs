@@ -32,8 +32,7 @@ struct CharacterInfoView: View {
         ]
     
         var body: some View {
-            VStack{
-
+ 
                 HStack {
          
                     VStack {
@@ -54,7 +53,7 @@ struct CharacterInfoView: View {
                         .frame(width: 150, height: 150, alignment: .leading)
                 }
                 
-            }
+        
             if showGrid{
                 CharacterSelectionView(characters: characters, selectedCharacter: $selectedCharacter, showGrid: $showGrid)
             }
