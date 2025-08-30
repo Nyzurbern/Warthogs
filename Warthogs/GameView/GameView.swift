@@ -15,39 +15,10 @@ struct GameView: View {
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble")
+        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble"),
+        Bubble(name: "Ultimate", position: CGPoint(x: 520, y: 200), radius: 70 ,imageName: "bubble")
     ]
-    
-    @State private var EnemyScore: Int = 0
-    @State private var PlayerScore: Int = 0
-    @State private var timer: String = "5:00"
-    
-    let timerColour: Color = Color(red: 0.9764 ,green: 0.8078, blue: 0.8078)
-    let enemyScoreColour: Color = Color(red: 0.9764, green: 0, blue: 0)
-    let playerScoreColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
-
     var body: some View {
-        
-        ZStack {
-            Rectangle()
-                .frame(width: 600, height: 60, alignment: .top)
-                .foregroundStyle(timerColour)
-                .border(.black, width: 2)
-            HStack{
-                Text(String(PlayerScore))
-                    .font(.largeTitle)
-                    .foregroundStyle(playerScoreColour)
-                    .offset(x: -225, y: 0)
-                Text(timer)
-                    .font(.largeTitle)
-                Text(String(EnemyScore))
-                    .font(.largeTitle)
-                    .foregroundStyle(enemyScoreColour)
-                    .offset(x: 225, y: 0)
-            }
-        }
-        .offset(x: 0, y: 20)
-        
         ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $bubbles)
             
@@ -86,7 +57,7 @@ struct GameView: View {
                 }
             }
             .stroke(Color.blue, lineWidth: 3)
-            
+            TimerView()
             // Draw circles for the hand points, including the wrist
             ForEach(handPoints, id: \.self) { point in
                 Circle()
@@ -232,7 +203,7 @@ struct ScannerView: UIViewControllerRepresentable {
                     let dy = finger.y - bubble.position.y
                     let distance = sqrt(dx*dx + dy*dy)
                     if distance < bubble.radius {
-                        print("Finger hit bubble!")
+                        print("Finger hit bubble\(bubble.id)!")
                         if let idx = parent.bubbles.firstIndex(where: {$0.id == bubble.id}) {
                             parent.bubbles.remove(at: idx)
                         }
