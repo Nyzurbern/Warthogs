@@ -17,17 +17,17 @@ struct CharacterSelectionView: View {
         
 //        let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
         
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
             ForEach(characters, id: \.name) { character in Button(action: {
                 selectedCharacter = character
                 showGrid = false
             }) {
-                
+
                 VStack {
                     Image(character.imageName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 100, height: 130)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.gray, lineWidth: 2))
                         .shadow(radius: 5)
@@ -37,7 +37,7 @@ struct CharacterSelectionView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            .padding()
+
             }
         }
                     
