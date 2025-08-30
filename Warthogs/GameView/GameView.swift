@@ -114,7 +114,7 @@ struct ScannerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         let viewController = UIViewController()
         
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video),
+        guard let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
               let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice),
               captureSession.canAddInput(videoInput) else {
             return viewController
@@ -213,7 +213,7 @@ struct ScannerView: UIViewControllerRepresentable {
         // Convert Vision's normalized coordinates to screen coordinates
         func convertVisionPoint(_ point: CGPoint, in size: CGSize) -> CGPoint {
             let screenSize = UIScreen.main.bounds.size
-            let y = (1 - point.y) * screenSize.height
+            let y = point.y * screenSize.height
             let x = point.x * screenSize.width
             return CGPoint(x: x, y: y)
         }
