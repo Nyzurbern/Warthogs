@@ -15,14 +15,14 @@ struct CharacterSelectionView: View {
     
     var body: some View {
         
-//        let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
+        //        let CharacterSelectionColour: Color = Color(red: 0.3961, green: 0.8588, blue: 0.8078)
         
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
             ForEach(characters, id: \.name) { character in Button(action: {
                 selectedCharacter = character
                 showGrid = false
             }) {
-
+                
                 VStack {
                     Image(character.imageName)
                         .resizable()
@@ -35,11 +35,15 @@ struct CharacterSelectionView: View {
                         .font(.subheadline)
                         .foregroundColor(.primary)
                 }
+                .buttonStyle(PlainButtonStyle())
+                .frame(alignment: .center)
             }
             .buttonStyle(PlainButtonStyle())
-
+            .frame(alignment: .center)
+                
             }
         }
-                    
+        
     }
+    
 }
