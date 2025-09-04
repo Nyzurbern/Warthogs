@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showingFullScreen = false
+    @State private var defaultTimer: Int = 300
+    @StateObject var countdown = CountdownManager()
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -21,6 +24,7 @@ struct ContentView: View {
                     .font(.largeTitle)
                 Button(action: {
                     showingFullScreen = true
+                    countdown.startCountdown(from: defaultTimer)
                 }) {
                     VStack{
                         Image("playButton")
@@ -40,5 +44,5 @@ struct ContentView: View {
     }
 }
 #Preview {
-        ContentView()
+        ContentView(countdown: CountdownManager())
 }

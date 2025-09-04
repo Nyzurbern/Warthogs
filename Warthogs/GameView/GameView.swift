@@ -57,7 +57,7 @@ struct GameView: View {
                 }
             }
             .stroke(Color.blue, lineWidth: 3)
-            TimerView()
+            TimerView(countdown: CountdownManager())
             // Draw circles for the hand points, including the wrist
             ForEach(handPoints, id: \.self) { point in
                 Circle()
@@ -78,6 +78,7 @@ struct GameView: View {
                 .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.bottom, 50)
+            HealthBarView()
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)

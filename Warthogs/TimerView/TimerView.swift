@@ -10,7 +10,7 @@ import SwiftUI
 struct TimerView: View {
     @State private var EnemyScore: Int = 0
     @State private var PlayerScore: Int = 0
-    @State private var timer: String = "5:00"
+    @ObservedObject var countdown: CountdownManager
     
     let timerColour: Color = Color(red: 0.9764 ,green: 0.8078, blue: 0.8078)
     let enemyScoreColour: Color = Color(red: 0.9764, green: 0, blue: 0)
@@ -27,8 +27,8 @@ struct TimerView: View {
                     .font(.largeTitle)
                     .foregroundStyle(playerScoreColour)
                     .offset(x: -225, y: 0)
-                Text(timer)
-                    .font(.largeTitle)
+                Text(String(countdown.timeRemaining))
+                                .font(.system(size: 26, weight: .bold, design: .monospaced))
                 Text(String(EnemyScore))
                     .font(.largeTitle)
                     .foregroundStyle(enemyScoreColour)
@@ -39,6 +39,7 @@ struct TimerView: View {
     }
 }
 
-#Preview {
-    TimerView()
-}
+//#Preview {
+//    @Previewable @StateObject var Countdown = CountdownManager()
+//    TimerView(countdown: Countdown, timeRemaining: 300)
+//}
