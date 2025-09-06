@@ -8,6 +8,7 @@
 import SwiftUI
 struct  CharacterAttributesView: View {
     let character: Character
+    @Binding var selectedCharacter: Character?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -26,22 +27,29 @@ struct  CharacterAttributesView: View {
                 Text("\(character.attributes.ultimate)")
                 Spacer()
                 
-                Divider()
-                ScrollView {
-                    Text("Backstory 🌧️")
-                        .fontWeight(.bold)
-                    Text(character.attributes.backstory)
+                Text("Backstory 🌧️")
+                    .fontWeight(.bold)
+                Text(character.attributes.backstory)
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
-                }
+
                 .frame(maxHeight: 200)
-                .padding(.top)
 
             }
             .background(Color.gray.opacity(0.1))
             .cornerRadius(10)
             .padding()
             
+            Button("Select this character") {
+                selectedCharacter = nil
+            }
+            .padding()
+            .font(.headline)
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
         }
         .padding()
         
