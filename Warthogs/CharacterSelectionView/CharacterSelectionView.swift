@@ -9,9 +9,8 @@ import SwiftUI
 struct CharacterSelectionView: View {
     
     let characters: [Character]
-    @Binding var selectedCharacter: Character?
+    @Binding var selectedCharacter: Character? 
     @Binding var showGrid: Bool
-    @State private var showingFullScreen = false
     
     var body: some View {
         
