@@ -25,13 +25,13 @@ struct LoginView: View {
                         print(textInput)
                     }
                 
-                NavigationLink(destination: GameView()) {
+                
                     Button("START FIGHTING NOW!!", action: {
                         showingFullScreen = true
                     })
                         .buttonStyle(.borderedProminent)
                         .tint(.red)
-                }
+                
                 .fullScreenCover(isPresented: $showingFullScreen) {
                     PlanetView()
                 }
