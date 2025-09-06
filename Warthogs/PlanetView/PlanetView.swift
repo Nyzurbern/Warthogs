@@ -9,8 +9,11 @@ import SwiftUI
 struct PlanetView: View {
     
     @State private var showingFullScreen = false
+    @State private var selectedPlanet: String = ""
     
     var body: some View {
+        
+    
         
         Text("Pick your planet!")
         
@@ -21,6 +24,7 @@ struct PlanetView: View {
         HStack {
             
             Button(action: {
+                selectedPlanet = "Mars"
                 showingFullScreen = true
             }) {
                 VStack{
@@ -33,7 +37,12 @@ struct PlanetView: View {
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                 }
-                
+            }
+            
+            Button(action: {
+                selectedPlanet = "Venus"
+                showingFullScreen = true
+            }){
                 VStack {
                     Image("venus")
                         .resizable()
@@ -47,13 +56,14 @@ struct PlanetView: View {
                         .fontWeight(.bold)
                 }
             }
+        }
             .background(.orange)
             .fullScreenCover(isPresented: $showingFullScreen) {
                 CharacterInfoView()
             }
         }
     }
-}
+
         
         #Preview {
             PlanetView()
