@@ -12,11 +12,12 @@ import Vision
 // 1. Application main interface
 struct GameView: View {
     
+    var countdown: CountdownManager
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble"),
-        Bubble(name: "Ultimate", position: CGPoint(x: 520, y: 200), radius: 70 ,imageName: "bubble")
+        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40, damage: 30 ,imageName: "bubble"),
+        Bubble(name: "Ultimate", position: CGPoint(x: 220, y: 200), radius: 20, damage: 50 ,imageName: "bubble")
     ]
     var body: some View {
         ZStack(alignment: .bottom){
@@ -57,7 +58,7 @@ struct GameView: View {
                 }
             }
             .stroke(Color.blue, lineWidth: 3)
-            TimerView(countdown: CountdownManager())
+            TimerView(countdown: countdown)
             // Draw circles for the hand points, including the wrist
             ForEach(handPoints, id: \.self) { point in
                 Circle()
@@ -71,6 +72,13 @@ struct GameView: View {
                     .resizable()
                     .frame(width: bubbles.radius * 2, height: bubbles.radius * 2)
                     .position(bubbles.position)
+            }
+            
+            HStack{
+                Image("Subject 1")
+                    .resizable()
+                    .frame(width: 200, height: 300)
+                Image("Subject 2")
             }
             
             Text(handPoseInfo)
@@ -225,5 +233,5 @@ struct ScannerView: UIViewControllerRepresentable {
 
 
 #Preview {
-    GameView()
+    GameView(countdown: CountdownManager())
 }

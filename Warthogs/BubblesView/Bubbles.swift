@@ -11,5 +11,6 @@ struct Bubble: Identifiable {
     let name: String
     let position: CGPoint
     let radius: CGFloat
+    let damage: Int
     var imageName: String
 }
