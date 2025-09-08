@@ -9,7 +9,7 @@ import SwiftUI
 struct  CharacterAttributesView: View {
     let character: Character
     @Binding var selectedCharacter: Character?
-    
+    @State private var showingFullScreen = false
     @State private var countdown = CountdownManager()
     @State private var health = HealthManager()
     
@@ -33,11 +33,11 @@ struct  CharacterAttributesView: View {
                 Text("Backstory 🌧️")
                     .fontWeight(.bold)
                 Text(character.attributes.backstory)
-                        .lineLimit(nil)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                .frame(maxHeight: 200)
-
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                
+                    .frame(maxHeight: 200)
+                
             }
             .background(Color.gray.opacity(0.1))
             .cornerRadius(10)
@@ -45,7 +45,7 @@ struct  CharacterAttributesView: View {
             
             Button("Select this character") {
                 selectedCharacter = character
-//                GameView(countdown: countdown, health: health)
+                showingFullScreen = true
             }
             .padding()
             .font(.headline)
@@ -54,9 +54,12 @@ struct  CharacterAttributesView: View {
             .cornerRadius(10)
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
+            .fullScreenCover(isPresented: $showingFullScreen) {
+                GameView(countdown: countdown, health: health, character: selectedCharacter!)
+            }
+            .padding()
+            .scaledToFit()
         }
-        .padding()
         
     }
-
 }
