@@ -23,7 +23,7 @@ struct CharacterSelectionView: View {
             }) {
                 
                 VStack {
-                    Image(character.imageName)
+                    Image(character.imageProfile)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 130)

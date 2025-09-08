@@ -9,7 +9,7 @@ import SwiftUI
 struct  CharacterAttributesView: View {
     let character: Character
     @Binding var selectedCharacter: Character?
-    
+    @State private var showingFullScreen = false
     @State private var countdown = CountdownManager()
     @State private var health = HealthManager()
     
@@ -46,7 +46,8 @@ struct  CharacterAttributesView: View {
             
             Button("Select this character") {
                 selectedCharacter = character
-//                GameView(countdown: countdown, health: health)
+                countdown.startCountdown(from: 300)
+                showingFullScreen = true
             }
             .padding()
             .font(.headline)
@@ -55,10 +56,14 @@ struct  CharacterAttributesView: View {
             .cornerRadius(10)
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
+            .fullScreenCover(isPresented: $showingFullScreen) {
+                GameView(countdown: countdown, health: health, character: selectedCharacter!)
+            }
+            .padding()
+            .scaledToFit()
         }
         .scaledToFit()
         .padding()
         
     }
-
 }

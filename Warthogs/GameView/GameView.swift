@@ -14,6 +14,7 @@ struct GameView: View {
     
     var countdown: CountdownManager
     var health: HealthManager
+    var character: Character
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
@@ -76,7 +77,7 @@ struct GameView: View {
             }
             
             HStack{
-                Image("Subject 1")
+                Image(character.stateImages.normalStateImage)
                     .resizable()
                     .frame(width: 200, height: 300)
                 Image("Subject 2")
@@ -236,5 +237,5 @@ struct ScannerView: UIViewControllerRepresentable {
 
 
 #Preview {
-    GameView(countdown: CountdownManager(), health: HealthManager())
+    GameView(countdown: CountdownManager(), health: HealthManager(), character: .tinySmalle)
 }
