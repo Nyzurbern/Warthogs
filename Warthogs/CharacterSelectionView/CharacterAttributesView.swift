@@ -51,6 +51,7 @@ struct  CharacterAttributesView: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
         }
+        .scaledToFit()
         .padding()
         
     }
