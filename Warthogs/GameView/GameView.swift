@@ -15,6 +15,7 @@ struct GameView: View {
     var countdown: CountdownManager
     var health: HealthManager
     var character: Character
+    @State private var selectedPlanet: String = ""
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
@@ -22,6 +23,19 @@ struct GameView: View {
         Bubble(name: "Ultimate", position: CGPoint(x: 220, y: 200), radius: 20, damage: 50 ,imageName: "bubble")
     ]
     var body: some View {
+//selected planet map
+        
+        if selectedPlanet == "Mars" {
+            Image("mapMars")
+                .opacity(0.5)
+                .scaledToFill()
+        }
+        else {
+            Image("mapVenus")
+                .opacity(0.5)
+                .scaledToFill()
+        }
+        
         ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $bubbles)
             
