@@ -33,11 +33,12 @@ struct  CharacterAttributesView: View {
                 Text("Backstory 🌧️")
                     .fontWeight(.bold)
                 Text(character.attributes.backstory)
-                    .lineLimit(nil)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                    .frame(maxHeight: 200)
-                
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                .frame(maxHeight: 200)
+
             }
             .background(Color.gray.opacity(0.1))
             .cornerRadius(10)
@@ -60,6 +61,8 @@ struct  CharacterAttributesView: View {
             .padding()
             .scaledToFit()
         }
+        .scaledToFit()
+        .padding()
         
     }
 }
