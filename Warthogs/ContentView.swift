@@ -25,7 +25,6 @@ struct ContentView: View {
                     .font(.largeTitle)
                 Button(action: {
                     showingFullScreen = true
-                    countdown.startCountdown(from: defaultTimer)
                 }) {
                     VStack{
                         Image("playButton")

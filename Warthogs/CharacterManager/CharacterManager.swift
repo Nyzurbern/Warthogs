@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 struct CharacterAttributes {
     let skill: String

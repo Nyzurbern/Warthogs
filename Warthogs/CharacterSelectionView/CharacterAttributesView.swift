@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
-struct  CharacterAttributesView: View {
+struct CharacterAttributesView: View {
     let character: Character
     @Binding var selectedCharacter: Character?
     @State private var showingFullScreen = false
     @State private var countdown = CountdownManager()
     @State private var health = HealthManager()
+    @Environment(SequenceManager.self) var sequenceManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -57,7 +58,7 @@ struct  CharacterAttributesView: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
             .fullScreenCover(isPresented: $showingFullScreen) {
-                GameView(countdown: countdown, health: health, character: selectedCharacter!)
+                GameView(countdown: countdown, health: health, character: selectedCharacter!, bubble: sequenceManager.bubblestoSpawn, sequenceManager: sequenceManager)
             }
             .padding()
             .scaledToFit()

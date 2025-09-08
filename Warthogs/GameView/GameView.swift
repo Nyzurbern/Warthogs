@@ -12,18 +12,17 @@ import Vision
 // 1. Application main interface
 struct GameView: View {
     
-    var countdown: CountdownManager
+    @State var countdown: CountdownManager
     var health: HealthManager
     var character: Character
+    var bubble: [Bubble]
+    @State var sequenceManager: SequenceManager
+    
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
-    @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40, damage: 30 ,imageName: "bubble"),
-        Bubble(name: "Ultimate", position: CGPoint(x: 220, y: 200), radius: 20, damage: 50 ,imageName: "bubble")
-    ]
     var body: some View {
         ZStack(alignment: .bottom){
-            ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $bubbles)
+            ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $sequenceManager.bubblestoSpawn, sequenceManager: $sequenceManager)
             
             // Draw lines between finger joints and the wrist
             Path { path in
@@ -69,7 +68,7 @@ struct GameView: View {
                     .position(x: point.x, y: point.y)
             }
             
-            ForEach(bubbles) {bubbles in
+            ForEach(sequenceManager.bubblestoSpawn) {bubbles in
                 Image(bubbles.imageName)
                     .resizable()
                     .frame(width: bubbles.radius * 2, height: bubbles.radius * 2)
@@ -101,7 +100,7 @@ struct ScannerView: UIViewControllerRepresentable {
     @Binding var handPoseInfo: String
     @Binding var handPoints: [CGPoint]
     @Binding var bubbles: [Bubble]
-    
+    @Binding var sequenceManager: SequenceManager
     let captureSession = AVCaptureSession()
     
     func makeUIViewController(context: Context) -> UIViewController {
@@ -206,9 +205,7 @@ struct ScannerView: UIViewControllerRepresentable {
                 print("Hand pose detection failed: \(error)")
             }
         }
-        
         func checkCollisions(handPoints: [CGPoint], bubbles: [Bubble]){
-            @State var Health = HealthManager()
             for finger in handPoints {
                 for bubble in bubbles {
                     let dx = finger.x - bubble.position.x
@@ -216,9 +213,9 @@ struct ScannerView: UIViewControllerRepresentable {
                     let distance = sqrt(dx*dx + dy*dy)
                     if distance < bubble.radius {
                         print("Finger hit bubble\(bubble.id)!")
-                        Health.decreaseEnemyHealth(bubble: bubble)
                         if let idx = parent.bubbles.firstIndex(where: {$0.id == bubble.id}) {
                             parent.bubbles.remove(at: idx)
+                            parent.sequenceManager.attackEnemy(damage: bubble.damage)
                         }
                     }
                 }
@@ -236,6 +233,7 @@ struct ScannerView: UIViewControllerRepresentable {
 }
 
 
-#Preview {
-    GameView(countdown: CountdownManager(), health: HealthManager(), character: .tinySmalle)
-}
+//#Preview {
+//    @Previewable @State let sequenceManager = SequenceManager()
+//    GameView(countdown: CountdownManager(), health: HealthManager(), character: .tinySmalle, bubble: SequenceManager.sampleBubble)
+//}
