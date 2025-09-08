@@ -17,10 +17,23 @@ struct GameView: View {
     var character: Character
     var bubble: [Bubble]
     @State var sequenceManager: SequenceManager
-    
+    @State private var selectedPlanet: String = ""
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     var body: some View {
+//selected planet map
+        
+        if selectedPlanet == "Mars" {
+            Image("mapMars")
+                .opacity(0.5)
+                .scaledToFill()
+        }
+        else {
+            Image("mapVenus")
+                .opacity(0.5)
+                .scaledToFill()
+        }
+        
         ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $sequenceManager.bubblestoSpawn, sequenceManager: $sequenceManager)
             
