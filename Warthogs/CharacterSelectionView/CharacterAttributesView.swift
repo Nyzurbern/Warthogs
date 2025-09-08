@@ -34,6 +34,7 @@ struct  CharacterAttributesView: View {
                     .fontWeight(.bold)
                 Text(character.attributes.backstory)
                         .lineLimit(nil)
+                        .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
 
                 .frame(maxHeight: 200)
