@@ -9,6 +9,9 @@ import SwiftUI
 
 struct HealthBarView: View {
     let healthBarGreen = Color(red: 0, green: 255, blue: 0)
+    let healthBarRed = Color(red: 255, green: 0, blue: 0)
+    var health: HealthManager
+    
     var body: some View {
         HStack {
             Rectangle()
@@ -22,5 +25,6 @@ struct HealthBarView: View {
 }
 
 #Preview {
-    HealthBarView()
+    @Previewable @State var healthManager = HealthManager()
+    HealthBarView(health: healthManager)
 }

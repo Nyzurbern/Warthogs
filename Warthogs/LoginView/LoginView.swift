@@ -33,7 +33,7 @@ struct LoginView: View {
                         .tint(.red)
                 
                 .fullScreenCover(isPresented: $showingFullScreen) {
-                    PlanetView()
+                    PlanetView(character: .tinySmalle)
                 }
 
             }

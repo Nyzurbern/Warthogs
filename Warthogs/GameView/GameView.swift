@@ -12,11 +12,13 @@ import Vision
 // 1. Application main interface
 struct GameView: View {
     
+    var countdown: CountdownManager
+    var health: HealthManager
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var bubbles: [Bubble] = [
-        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40 ,imageName: "bubble"),
-        Bubble(name: "Ultimate", position: CGPoint(x: 520, y: 200), radius: 70 ,imageName: "bubble")
+        Bubble(name: "Skill", position: CGPoint(x: 120, y: 200), radius: 40, damage: 30 ,imageName: "bubble"),
+        Bubble(name: "Ultimate", position: CGPoint(x: 220, y: 200), radius: 20, damage: 50 ,imageName: "bubble")
     ]
     var body: some View {
         ZStack(alignment: .bottom){
@@ -57,7 +59,7 @@ struct GameView: View {
                 }
             }
             .stroke(Color.blue, lineWidth: 3)
-            TimerView(countdown: CountdownManager())
+            TimerView(countdown: countdown)
             // Draw circles for the hand points, including the wrist
             ForEach(handPoints, id: \.self) { point in
                 Circle()
@@ -73,12 +75,19 @@ struct GameView: View {
                     .position(bubbles.position)
             }
             
+            HStack{
+                Image("Subject 1")
+                    .resizable()
+                    .frame(width: 200, height: 300)
+                Image("Subject 2")
+            }
+            
             Text(handPoseInfo)
                 .padding()
                 .background(.ultraThinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(.bottom, 50)
-            HealthBarView()
+            HealthBarView(health: health)
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
@@ -198,6 +207,7 @@ struct ScannerView: UIViewControllerRepresentable {
         }
         
         func checkCollisions(handPoints: [CGPoint], bubbles: [Bubble]){
+            @State var Health = HealthManager()
             for finger in handPoints {
                 for bubble in bubbles {
                     let dx = finger.x - bubble.position.x
@@ -205,6 +215,7 @@ struct ScannerView: UIViewControllerRepresentable {
                     let distance = sqrt(dx*dx + dy*dy)
                     if distance < bubble.radius {
                         print("Finger hit bubble\(bubble.id)!")
+                        Health.decreaseEnemyHealth(bubble: bubble)
                         if let idx = parent.bubbles.firstIndex(where: {$0.id == bubble.id}) {
                             parent.bubbles.remove(at: idx)
                         }
@@ -225,5 +236,5 @@ struct ScannerView: UIViewControllerRepresentable {
 
 
 #Preview {
-    GameView()
+    GameView(countdown: CountdownManager(), health: HealthManager())
 }

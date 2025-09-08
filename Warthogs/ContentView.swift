@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var showingFullScreen = false
     @State private var defaultTimer: Int = 300
-    @StateObject var countdown = CountdownManager()
+    @State private var countdown = CountdownManager()
+    @State private var health = HealthManager()
 
     var body: some View {
         NavigationStack {
@@ -44,5 +45,5 @@ struct ContentView: View {
     }
 }
 #Preview {
-        ContentView(countdown: CountdownManager())
+        ContentView()
 }

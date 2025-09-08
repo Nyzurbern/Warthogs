@@ -10,10 +10,11 @@ struct PlanetView: View {
     
     @State private var showingFullScreen = false
     @State private var selectedPlanet: String = ""
+    @State var character: Character
+    
+    let characters = Character.all
     
     var body: some View {
-        
-    
         
         Text("Pick your planet!")
         
@@ -59,12 +60,12 @@ struct PlanetView: View {
         }
             .background(.orange)
             .fullScreenCover(isPresented: $showingFullScreen) {
-                CharacterInfoView()
+                CharacterInfoView(character: .tinySmalle)
             }
         }
     }
 
         
-        #Preview {
-            PlanetView()
-        }
+#Preview {
+    PlanetView(character: .tinySmalle)
+}
