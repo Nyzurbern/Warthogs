@@ -77,7 +77,7 @@ struct GameView: View {
             }
             
             HStack{
-                Image(character.imageName)
+                Image(character.stateImages.normalStateImage)
                     .resizable()
                     .frame(width: 200, height: 300)
                 Image("Subject 2")

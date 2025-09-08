@@ -46,6 +46,7 @@ struct  CharacterAttributesView: View {
             
             Button("Select this character") {
                 selectedCharacter = character
+                countdown.startCountdown(from: 300)
                 showingFullScreen = true
             }
             .padding()
