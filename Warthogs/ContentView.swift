@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var showingFullScreen = false
     @State private var defaultTimer: Int = 300
     @State private var countdown = CountdownManager()
+    @State private var health = HealthManager()
 
     var body: some View {
         NavigationStack {

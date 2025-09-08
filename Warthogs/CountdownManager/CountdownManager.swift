@@ -10,11 +10,7 @@ import Observation
 
 @Observable
 class CountdownManager {
-    var timeRemaining: Int = 300 {
-        didSet {
-            print("set var")
-        }
-    }
+    var timeRemaining: Int = 300
 
     private var task: Task<Void, Never>?
     
@@ -24,8 +20,6 @@ class CountdownManager {
             for i in stride(from: seconds, through: 0, by: -1) {
                 await MainActor.run {
                     timeRemaining = i
-                    print(i)
-                    print("Time remaining inside\(timeRemaining)")
                 }
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
             }
@@ -34,7 +28,6 @@ class CountdownManager {
     var formattedTime: String {
         let minutes = timeRemaining / 60
         let seconds = timeRemaining % 60
-        print("Time remaining outside\(timeRemaining)")
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }

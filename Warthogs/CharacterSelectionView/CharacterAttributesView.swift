@@ -10,6 +10,9 @@ struct  CharacterAttributesView: View {
     let character: Character
     @Binding var selectedCharacter: Character?
     
+    @State private var countdown = CountdownManager()
+    @State private var health = HealthManager()
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
             Text("Attributes for \(character.name)")
@@ -41,7 +44,8 @@ struct  CharacterAttributesView: View {
             .padding()
             
             Button("Select this character") {
-                selectedCharacter = nil
+                selectedCharacter = character
+//                GameView(countdown: countdown, health: health)
             }
             .padding()
             .font(.headline)

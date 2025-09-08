@@ -6,4 +6,15 @@
 //
 
 import Foundation
+import Observation
 
+@Observable
+class HealthManager {
+    var enemyHealth = 100
+    var playerHealth = 100
+    
+    func decreaseEnemyHealth(bubble: Bubble){
+        enemyHealth -= bubble.damage
+        print(enemyHealth)
+    }
+}

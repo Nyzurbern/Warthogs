@@ -29,9 +29,6 @@ struct TimerView: View {
                     .offset(x: -225, y: 0)
                 Text(String(countdown.formattedTime))
                     .font(.system(size: 26, weight: .bold, design: .monospaced))
-                    .onChange(of: countdown.timeRemaining) {
-                        print("I CHNASgndsd")
-                    }
                 Text(String(EnemyScore))
                     .font(.largeTitle)
                     .foregroundStyle(enemyScoreColour)
