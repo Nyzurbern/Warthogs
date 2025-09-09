@@ -16,11 +16,6 @@
 			path = Warthogs;
 			sourceTree = "<group>";
 		};
-		D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LosingWinningUIView;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +34,6 @@
 			children = (
 				D90DAFB42E5018B3005D579F /* Warthogs */,
 				D90DAFB32E5018B3005D579F /* Products */,
-				D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,7 +62,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D90DAFB42E5018B3005D579F /* Warthogs */,
-				D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */,
 			);
 			name = Warthogs;
 			packageProductDependencies = (
