@@ -25,7 +25,7 @@ struct LosingUIView: View {
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(.red)
-                Text("Enemy health left: \(health.enemyHealth)")
+                Text("YOU LITERALLY DIED!!!")
                 Text("Total damage dealt:")
             }
             .background()
