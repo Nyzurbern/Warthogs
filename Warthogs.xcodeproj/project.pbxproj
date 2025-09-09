@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		D905168F2E6E9F9A00965325 /* SequenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D905168E2E6E9F9A00965325 /* SequenceManager.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		D905168E2E6E9F9A00965325 /* SequenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceManager.swift; sourceTree = "<group>"; };
 		D90DAFB22E5018B3005D579F /* Warthogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warthogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,9 +16,9 @@
 			path = Warthogs;
 			sourceTree = "<group>";
 		};
-		D9BAB0EA2E6E7A5200A29233 /* WinningUIView */ = {
+		D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WinningUIView;
+			path = LosingWinningUIView;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -42,10 +37,9 @@
 		D90DAFA92E5018B3005D579F = {
 			isa = PBXGroup;
 			children = (
-				D905168E2E6E9F9A00965325 /* SequenceManager.swift */,
 				D90DAFB42E5018B3005D579F /* Warthogs */,
 				D90DAFB32E5018B3005D579F /* Products */,
-				D9BAB0EA2E6E7A5200A29233 /* WinningUIView */,
+				D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,7 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D90DAFB42E5018B3005D579F /* Warthogs */,
-				D9BAB0EA2E6E7A5200A29233 /* WinningUIView */,
+				D9BAB0EA2E6E7A5200A29233 /* LosingWinningUIView */,
 			);
 			name = Warthogs;
 			packageProductDependencies = (
@@ -132,7 +126,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D905168F2E6E9F9A00965325 /* SequenceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
