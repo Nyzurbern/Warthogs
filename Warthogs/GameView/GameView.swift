@@ -34,13 +34,7 @@ struct GameView: View {
         
         @ViewBuilder
         private func gameScene(background: String) -> some View {
-            ZStack {
-                Image(background)
-                    .opacity(0.5)
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
-                
+
                 ZStack(alignment: .bottom){
                     ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $sequenceManager.bubblestoSpawn, sequenceManager: $sequenceManager)
                     
@@ -108,6 +102,11 @@ struct GameView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(.bottom, 50)
                     HealthBarView(health: health)
+                    
+                    Image(background)
+                        .opacity(0.5)
+                        .scaledToFill()
+                        .ignoresSafeArea()
                 }
                 .edgesIgnoringSafeArea(.all)
                 .navigationBarBackButtonHidden(true)
@@ -251,7 +250,7 @@ struct GameView: View {
                 }
             }
         }
-}
+
 
 //#Preview {
 //    @Previewable @State let sequenceManager = SequenceManager()
