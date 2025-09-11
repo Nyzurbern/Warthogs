@@ -10,6 +10,7 @@ import SwiftUI
 struct WinningUIView: View {
 
     @State private var currentHealth = HealthManager()
+//    @State var sequenceManager: SequenceManager
     var health = HealthManager()
 
     var body: some View {
@@ -17,10 +18,10 @@ struct WinningUIView: View {
             .font(.largeTitle)
             .fontWeight(.black)
             .foregroundStyle(.red)
-        Text("Health left: \(currentHealth)")
+        Text("Health left: \(health.currentHealth)")
     }
 }
 
-#Preview {
-    WinningUIView()
-}
+//#Preview {
+//    WinningUIView()
+//}

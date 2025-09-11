@@ -10,6 +10,7 @@ import SwiftUI
 struct WinningUIView: View {
     
     @State private var playerHealth = HealthManager()
+    @State private var sequenceManager: SequenceManager
     var health = HealthManager()
     
     var body: some View {
@@ -17,7 +18,7 @@ struct WinningUIView: View {
             .font(.largeTitle)
             .fontWeight(.black)
             .foregroundStyle(.red)
-        Text("Health left: \(health.currentHealth)")
+        Text("Health left: \(sequenceManager.playerHealth.currentHealth)")
     }
 }
 

@@ -9,7 +9,8 @@ import Foundation
 import Observation
 
 @Observable
-class SequenceManager {
+final class SequenceManager {
+    var playerImageName: String
     var bubblestoSpawn: [Bubble] = []
     let player: Character
     let enemy: Character
@@ -23,6 +24,7 @@ class SequenceManager {
         self.enemy = Character(name: "Enemy", imageProfile: "Subject 2", attributes: CharacterAttributes(skill: "Falcon Pawnch", ultimate: "Distraction Dance", backstory: "A criminal who went from robbing banks to infiltrating the airship to either taking down or joining the tophat organisation"), stateImages: AttackImages(normalStateImage: "Subject 2", skillStateImage: "Subject 2", ultimateStateImage: "Subject 2"))
         self.playerHealth = HealthManager()
         self.enemyHealth = HealthManager()
+        self.playerImageName = player.stateImages.normalStateImage
     }
     
     static let sampleBubble = Bubble(name: "Skill", position: CGPoint(x: 100, y: 200), radius: 50, damage: 30, imageName: "bubble")
@@ -38,7 +40,15 @@ class SequenceManager {
     }
     
     func attackPlayer(damage: Int) {
+        if damage < 50 {
+            playerImageName = player.stateImages.skillStateImage
+        } else {
+            playerImageName = player.stateImages.ultimateStateImage
+        }
         playerHealth.takeDamage(amount:damage)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.playerImageName = self.player.imageName
+        }
         spawnBubble()
     }
     
