@@ -9,7 +9,7 @@ import SwiftUI
 struct PlanetView: View {
     
     @State private var showingFullScreen = false
-    @State private var selectedPlanet: String = ""
+    @State var selectedPlanet: String = ""
     @State var character: Character
     
     let characters = Character.all
@@ -60,7 +60,7 @@ struct PlanetView: View {
         }
             .background(.orange)
             .fullScreenCover(isPresented: $showingFullScreen) {
-                CharacterInfoView(character: .tinySmalle)
+                CharacterInfoView(character: .tinySmalle, selectedPlanet: $selectedPlanet)
             }
         }
     }

@@ -18,26 +18,29 @@ struct GameView: View {
     var bubble: [Bubble]
     
     @State var sequenceManager: SequenceManager
-    @State private var selectedPlanet: String = ""
+    @Binding var selectedPlanet: String
     @State private var handPoseInfo: String = "Detecting hand poses..."
     @State private var handPoints: [CGPoint] = []
     @State private var showWinScreen = false
     @State private var showLoseScreen = false
     var body: some View {
-        //selected planet map
-        Group {
-            if selectedPlanet == "Mars" {
-                gameScene(background: "mapMars")
-            } else {
-                gameScene(background: "mapVenus")
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func gameScene(background: String) -> some View {
         ZStack(alignment: .bottom){
             ScannerView(handPoseInfo: $handPoseInfo, handPoints: $handPoints, bubbles: $sequenceManager.bubblestoSpawn, sequenceManager: $sequenceManager)
+            if selectedPlanet == "Mars" {
+                Image("mapMars")
+                    .resizable()
+                    .ignoresSafeArea()
+                    .opacity(0.7)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .zIndex(0)
+            } else {
+                Image("mapVenus")
+                    .resizable()
+                    .ignoresSafeArea()
+                    .opacity(0.7)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .zIndex(0)
+            }
             
             // Draw lines between finger joints and the wrist
             Path { path in

@@ -13,6 +13,7 @@ struct CharacterInfoView: View {
     @State private var showGrid = false
     @State private var selectedCharacter: Character? = nil
     @State var character: Character
+    @Binding var selectedPlanet: String
     
     let characters = [
         Character.tinySmalle, Character.laoNainai
@@ -46,7 +47,7 @@ struct CharacterInfoView: View {
             }
             
             	if let character = selectedCharacter {
-                CharacterAttributesView(character: character, selectedCharacter: $selectedCharacter)}
+                CharacterAttributesView(character: character, selectedCharacter: $selectedCharacter, selectedPlanet: $selectedPlanet)}
             
          
             if let finalCharacter = selectedCharacter {
@@ -58,6 +59,6 @@ struct CharacterInfoView: View {
         }
     }
 }
-#Preview {
-    CharacterInfoView(character: .laoNainai)
-}
+//#Preview {
+//    CharacterInfoView(character: .laoNainai, selectedPlanet: selec)
+//}

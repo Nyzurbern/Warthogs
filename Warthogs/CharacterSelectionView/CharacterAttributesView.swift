@@ -12,6 +12,7 @@ struct CharacterAttributesView: View {
     @State private var showingFullScreen = false
     @State private var countdown = CountdownManager()
     @State private var health = HealthManager()
+    @Binding var selectedPlanet: String
     @Environment(SequenceManager.self) var sequenceManager
     
     var body: some View {
@@ -58,7 +59,7 @@ struct CharacterAttributesView: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
             .fullScreenCover(isPresented: $showingFullScreen) {
-                GameView(countdown: countdown, health: health, character: selectedCharacter!, bubble: sequenceManager.bubblestoSpawn, sequenceManager: sequenceManager)
+                GameView(countdown: countdown, health: health, character: selectedCharacter!, bubble: sequenceManager.bubblestoSpawn, sequenceManager: sequenceManager, selectedPlanet: $selectedPlanet)
             }
             .padding()
             .scaledToFit()
