@@ -39,25 +39,24 @@ struct CharacterAttributesView: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
 
-                .frame(maxHeight: 200)
+                .frame(maxHeight: 180)
 
             }
             .background(Color.gray.opacity(0.1))
             .cornerRadius(10)
-            .padding()
-            
-            Button("Select this character") {
-                selectedCharacter = character
-                countdown.startCountdown(from: 300)
-                showingFullScreen = true
+            VStack {
+                Button("Select this character") {
+                    selectedCharacter = character
+                    countdown.startCountdown(from: 300)
+                    showingFullScreen = true
+                }
             }
             .padding()
             .font(.headline)
             .background(Color.green)
             .foregroundColor(.white)
             .cornerRadius(10)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal)
+            .frame(maxWidth: .infinity, alignment: .trailing)
             .fullScreenCover(isPresented: $showingFullScreen) {
                 GameView(countdown: countdown, health: health, character: selectedCharacter!, bubble: sequenceManager.bubblestoSpawn, sequenceManager: sequenceManager, selectedPlanet: $selectedPlanet)
             }
